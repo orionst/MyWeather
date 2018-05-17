@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">My Weather</string>
-    <string name="title">Погода</string>
+    <string name="date_title">Погода на</string>
+    <string name="temperature">23º</string>
 </resources>
