@@ -3,10 +3,15 @@ package com.example.viktor.myweather;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String CITY = "CITY";
+    public static final String SHOW_HUMIDITY = "SHOW_P";
+    public static final String SHOW_PRESSURE = "SHOW_H";
 
     private static final String TAG = "weatherLog";
 
@@ -27,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         TextView date = (TextView) findViewById(R.id.dateTitle);
         date.setText(new WeatherConditionBuilder(getResources()).getTodayDate());
+
+        ImageButton btnViewDetails = findViewById(R.id.viewDetailsButton);
+        btnViewDetails.setOnClickListener(new StartDetailedActivity(this));
     }
+
 
     @Override
     protected void onStart() {

@@ -17,4 +17,5 @@ public class WeatherConditionBuilder {
         String dateTitle = resources.getString(R.string.date_title);
         return String.format("%s %s", dateTitle, new SimpleDateFormat("dd.MM.yyyy HH:mm").format(Calendar.getInstance().getTime()));
     }
+
 }

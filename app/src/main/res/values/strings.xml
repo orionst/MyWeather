@@ -2,4 +2,9 @@
     <string name="app_name">My Weather</string>
     <string name="date_title">Погода на</string>
     <string name="temperature">23º</string>
+    <string name="detailedTitle">Погода в других городах:</string>
+    <string name="humidityDetailHeader">Влажность: </string>
+    <string name="pressureDetailHeader">Давление: </string>
+    <string name="humidityToggle">Отобразить влажность</string>
+    <string name="pressureToggle">Отобразить давление</string>
 </resources>
