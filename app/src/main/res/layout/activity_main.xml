@@ -23,11 +23,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
         android:soundEffectsEnabled="true"
         android:text="@string/temperature"
         android:textSize="@dimen/temp_text_size"
         app:layout_constraintEnd_toEndOf="@+id/dateTitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateTitle" />
 
     <ImageView
@@ -41,11 +43,13 @@
 
     <EditText
         android:id="@+id/cityName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="62dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
+        android:inputType="text"
+        android:hint="@string/cityNameHint"
         app:layout_constraintEnd_toStartOf="@+id/viewDetailsButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchHumidity" />
@@ -64,21 +68,25 @@
 
     <Switch
         android:id="@+id/switchPressure"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
         android:text="@string/pressureToggle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailedTitle" />
 
     <Switch
         android:id="@+id/switchHumidity"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
         android:text="@string/humidityToggle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchPressure" />
 
@@ -91,5 +99,6 @@
         app:layout_constraintStart_toEndOf="@+id/cityName"
         app:layout_constraintTop_toTopOf="@+id/cityName"
         app:srcCompat="@android:drawable/ic_menu_search" />
+
 
 </android.support.constraint.ConstraintLayout>
