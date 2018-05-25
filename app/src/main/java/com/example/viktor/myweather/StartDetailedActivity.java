@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 public class StartDetailedActivity implements View.OnClickListener{
 
@@ -20,10 +21,15 @@ public class StartDetailedActivity implements View.OnClickListener{
         Switch show_hum = sourceActivity.findViewById(R.id.switchHumidity);
         Switch show_pres = sourceActivity.findViewById(R.id.switchPressure);
 
-        Intent intent = new Intent(sourceActivity, DetailedActivity.class);
-        intent.putExtra(MainActivity.CITY, city.getText().toString());
-        intent.putExtra(MainActivity.SHOW_HUMIDITY, show_hum.isChecked());
-        intent.putExtra(MainActivity.SHOW_PRESSURE, show_pres.isChecked());
-        sourceActivity.startActivity(intent);
+        String cityName = city.getText().toString();
+        if (cityName.trim().isEmpty()) {
+            Toast.makeText(sourceActivity.getApplicationContext(), R.string.cityNameEmptyError, Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(sourceActivity, DetailedActivity.class);
+            intent.putExtra(MainActivity.CITY, cityName);
+            intent.putExtra(MainActivity.SHOW_HUMIDITY, show_hum.isChecked());
+            intent.putExtra(MainActivity.SHOW_PRESSURE, show_pres.isChecked());
+            sourceActivity.startActivity(intent);
+        }
     }
 }

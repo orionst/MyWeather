@@ -30,13 +30,12 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), instanceState + " - onCreate()", Toast.LENGTH_SHORT).show();
         Log.d(TAG, instanceState + " - onCreate()");
 
-        TextView date = (TextView) findViewById(R.id.dateTitle);
+        final TextView date = (TextView) findViewById(R.id.dateTitle);
         date.setText(new WeatherConditionBuilder(getResources()).getTodayDate());
 
-        ImageButton btnViewDetails = findViewById(R.id.viewDetailsButton);
+        final ImageButton btnViewDetails = findViewById(R.id.viewDetailsButton);
         btnViewDetails.setOnClickListener(new StartDetailedActivity(this));
     }
-
 
     @Override
     protected void onStart() {

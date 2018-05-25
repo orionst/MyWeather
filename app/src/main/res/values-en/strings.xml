@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Weather</string>
+    <string name="date_title">Weather forecast for</string>
+    <string name="temperature">23º</string>
+    <string name="detailedTitle">Weather in other cities:</string>
+    <string name="humidityDetailHeader">Humidity: </string>
+    <string name="pressureDetailHeader">Pressure: </string>
+    <string name="humidityToggle">Show humidity</string>
+    <string name="pressureToggle">Show pressure</string>
+    <string name="cityNameHint">Input city name</string>
+    <string name="cityNameEmptyError">This field is blank</string>
+</resources>

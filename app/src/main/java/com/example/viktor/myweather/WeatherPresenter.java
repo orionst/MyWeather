@@ -1,20 +1,17 @@
 package com.example.viktor.myweather;
 
-public final class WeatherPresenter {
-
-    private static WeatherPresenter instance = null;
+public class WeatherPresenter {
 
     private int temperature;
     private int pressure;
     private int humidity;
     private String city;
 
-    private WeatherPresenter(String city) {
+    public WeatherPresenter(String city) {
         this.city = city;
-        getWeather();
     }
 
-    public void getWeather() {
+    public void checkWeather() {
         if (city.equals("Moscow")) {
             temperature = 23;
             pressure = 737;
@@ -41,13 +38,5 @@ public final class WeatherPresenter {
     public int getHumidity() {
         return humidity;
     }
-
-    public static WeatherPresenter getInstance(String city){
-        if (instance == null){
-            instance = new WeatherPresenter(city);
-        }
-        return instance;
-    }
-
 
 }

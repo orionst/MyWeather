@@ -11,9 +11,9 @@ public class DetailedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed);
 
-        final WeatherPresenter presenter = WeatherPresenter.getInstance(MainActivity.CITY);
-
         String text = getIntent().getExtras().getString(MainActivity.CITY); // получить данные из Intent
+        WeatherPresenter presenter = new WeatherPresenter(text);
+        presenter.checkWeather();
         boolean show_pres = getIntent().getExtras().getBoolean(MainActivity.SHOW_PRESSURE); // получить данные из Intent
         boolean show_hum = getIntent().getExtras().getBoolean(MainActivity.SHOW_HUMIDITY); // получить данные из Intent
 
