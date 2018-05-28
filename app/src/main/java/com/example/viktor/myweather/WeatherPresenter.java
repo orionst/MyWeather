@@ -12,19 +12,9 @@ public class WeatherPresenter {
     }
 
     public void checkWeather() {
-        if (city.equals("Moscow")) {
-            temperature = 23;
-            pressure = 737;
-            humidity = 28;
-        } else if (city.equals("SPB")) {
-            temperature = 33;
-            pressure = 730;
-            humidity = 40;
-        } else {
-            temperature = -15;
-            pressure = 747;
-            humidity = 5;
-        }
+        temperature = -15;
+        pressure = 747;
+        humidity = 5;
     }
 
     public int getTemperature() {

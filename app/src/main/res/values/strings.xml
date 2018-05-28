@@ -9,4 +9,11 @@
     <string name="pressureToggle">Отобразить давление</string>
     <string name="cityNameHint">Введите название города</string>
     <string name="cityNameEmptyError">Название города не введено</string>
-</resources>
+    <string name="empty">Список городов пуст</string>
+    <string-array name="Cities">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Екатеринбург</item>
+        <item>Новосибирск</item>
+        <item>Самара</item>
+    </string-array></resources>

@@ -10,4 +10,11 @@
     <string name="pressureToggle">Show pressure</string>
     <string name="cityNameHint">Input city name</string>
     <string name="cityNameEmptyError">This field is blank</string>
-</resources>
+    <string name="empty">Cities list epmty</string>
+    <string-array name="Cities">
+        <item>Moscow</item>
+        <item>Saint-Petersburg</item>
+        <item>Ekaterinburg</item>
+        <item>Novosibirsk</item>
+        <item>Samara</item>
+    </string-array></resources>
