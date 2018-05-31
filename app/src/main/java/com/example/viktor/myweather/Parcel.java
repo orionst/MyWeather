@@ -1,18 +1,20 @@
 package com.example.viktor.myweather;
 
+import com.example.viktor.myweather.forecasts.City;
+
 import java.io.Serializable;
 
 public class Parcel implements Serializable {
-    private String cityName;
+    private City city;
     private boolean showHumidity;
     private boolean showPressure;
 
-    public String getCityName() {
-        return cityName;
+    public City getCity() {
+        return city;
     }
 
-    public Parcel(String cityName) {
-        this.cityName = cityName;
+    public Parcel(City city) {
+        this.city = city;
         this.showHumidity = true;
         this.showPressure = true;
     }
