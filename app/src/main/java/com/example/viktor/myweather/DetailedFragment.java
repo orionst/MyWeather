@@ -1,10 +1,12 @@
 package com.example.viktor.myweather;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class DetailedFragment extends Fragment {
@@ -26,26 +28,35 @@ public class DetailedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View layout = inflater.inflate(R.layout.fragment_detailed, container, false);
+        final Parcel parcel = getParcel();
 
-        Parcel parcel = getParcel();
-
-        TextView cityView = layout.findViewById(R.id.cityTitleView);
-        cityView.setText(parcel.getCityName());
-
-        WeatherPresenter presenter = new WeatherPresenter(parcel.getCityName());
+        WeatherPresenter presenter = new WeatherPresenter(parcel.getCity().getCityName());
         presenter.checkWeather();
 
-        TextView temperatureView = layout.findViewById(R.id.temperatureDetail);
+        final View layout = inflater.inflate(R.layout.fragment_detailed, container, false);
+
+        final TextView cityView = layout.findViewById(R.id.cityTitleView);
+        cityView.setText(parcel.getCity().getCityName());
+
+        final TextView temperatureView = layout.findViewById(R.id.temperatureDetail);
         temperatureView.setText(((Integer) presenter.getTemperature()).toString());
 
+        final Button buttonHourlyWeather = layout.findViewById(R.id.buttonHourlyWeather);
+        buttonHourlyWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button = layout.findViewById(R.id.buttonHourlyWeather);
+                showHourlyWeather(parcel);
+            }
+        });
+
         if (parcel.isShowPressure()) {
-            TextView pressureView = layout.findViewById(R.id.pressureDetail);
+            final TextView pressureView = layout.findViewById(R.id.pressureDetail);
             pressureView.setText(String.format("%s %s", getResources().getString(R.string.pressureDetailHeader), ((Integer) presenter.getPressure()).toString()));
         }
 
         if (parcel.isShowHumidity()) {
-            TextView humidityView = layout.findViewById(R.id.humidityDetail);
+            final TextView humidityView = layout.findViewById(R.id.humidityDetail);
             humidityView.setText(String.format("%s %s", getResources().getString(R.string.humidityDetailHeader), ((Integer) presenter.getHumidity()).toString()));
         }
 
@@ -56,5 +67,31 @@ public class DetailedFragment extends Fragment {
         Parcel parcel = (Parcel) getArguments().getSerializable(PARCEL);
         return parcel;
     }
+
+    private void showHourlyWeather(Parcel parcel) {
+
+//        HourlyFragment fragment2 = (HourlyFragment) getFragmentManager().findFragmentById(R.id.detailed_weather);
+//        fragment2 = HourlyFragment.create(parcel);
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.detailed_weather, fragment2);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+
+
+        // Проверим, что детальный фрагмент существует в активити
+            HourlyFragment detail = new HourlyFragment();
+            detail = HourlyFragment.create(parcel);
+            // если есть необходимость, то выведем инфу о городе
+                // Создаем новый фрагмент, с текущей позицией, для вывода герба
+
+                // Выполняем транзакцию по замене фрагмента
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.detailed_weather, detail);  // замена фрагмента
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                ft.commit();
+
+    }
+
 
 }

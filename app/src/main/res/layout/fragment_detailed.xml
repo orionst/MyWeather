@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailedFragment">
+    android:gravity="center"
+    tools:context=".DetailedFragment"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/cityTitleView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:textSize="@dimen/title_text_size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:gravity="center"
+        android:textSize="@dimen/title_text_size" />
 
     <TextView
         android:id="@+id/temperatureDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
         android:soundEffectsEnabled="true"
         android:text="@string/temperature"
-        android:textSize="@dimen/temp_text_size"
-        app:layout_constraintEnd_toEndOf="@+id/dateTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityTitleView" />
+        android:gravity="center"
+        android:textSize="@dimen/temp_text_size"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/rain_s_cloudy" />
 
     <TextView
+        style="@style/detailedtextSize"
+        android:id="@+id/weatherConditionDetail"
+        android:text="Солнечно"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+    <TextView
+        style="@style/detailedtextSize"
         android:id="@+id/pressureDetail"
-        android:layout_width="wrap_content"
+        android:text=""
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/temperatureDetail"
-        app:layout_constraintTop_toTopOf="@+id/temperatureDetail" />
+        android:gravity="center"/>
 
     <TextView
+        style="@style/detailedtextSize"
         android:id="@+id/humidityDetail"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/buttonHourlyWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/temperatureDetail"
-        app:layout_constraintTop_toBottomOf="@+id/pressureDetail" />
+        android:text="@string/hourlyForecastTitle"/>
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>

@@ -5,17 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <!-- Фрагмент с выбором городов -->
     <fragment android:name="com.example.viktor.myweather.CitiesFragment"
-        android:id="@+id/cities" android:layout_weight="1"
-        android:layout_width="0px" android:layout_height="match_parent" />
+        android:id="@+id/cities"
+        android:layout_weight="1"
+        android:layout_width="0px"
+        android:layout_height="match_parent" />
 
-    <!-- Здесь будет детальная информация о погоде выбраного города -->
+    <!-- Здесь будет детальная информация о погоде выбранного города -->
     <FrameLayout
         android:id="@+id/detailed_weather"
         android:layout_width="0px"
         android:layout_height="match_parent"
         android:layout_weight="1" >
+
 
     </FrameLayout>
 

@@ -12,12 +12,19 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.viktor.myweather.forecasts.City;
+import com.example.viktor.myweather.forecasts.WeatherData;
+
+import java.util.HashMap;
+
 import static com.example.viktor.myweather.DetailedFragment.PARCEL;
 
 public class CitiesFragment extends ListFragment{
 
     boolean isExistDetailedView;
     Parcel currentParcel;
+    HashMap<String, City> cities;
+    WeatherData weatherData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,9 +46,16 @@ public class CitiesFragment extends ListFragment{
 
         if (savedInstanceState != null) {
             currentParcel = (Parcel) savedInstanceState.getSerializable("CurrentCity");
-        }
-        else {
-            currentParcel = new Parcel(getResources().getTextArray(R.array.Cities)[0].toString());
+            cities = (HashMap<String, City>) savedInstanceState.getSerializable("CitiesList");
+            weatherData = (WeatherData) savedInstanceState.getSerializable("WeatherData");
+        } else {
+            weatherData = new WeatherData();
+            CharSequence[] citiesNames = getResources().getTextArray(R.array.Cities);
+            cities = new HashMap<>();
+            for (CharSequence citiesName : citiesNames) {
+                cities.put(citiesName.toString(), new City(weatherData, citiesName.toString()));
+            }
+            currentParcel = new Parcel(cities.get(citiesNames[0].toString()));
         }
 
         if (isExistDetailedView) {
@@ -54,13 +68,15 @@ public class CitiesFragment extends ListFragment{
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("CurrentCity", currentParcel);
+        outState.putSerializable("CitiesList", cities);
+        outState.putSerializable("WeatherData", weatherData);
     }
 
     // Обработка выбора позиции
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         TextView cityNameView = (TextView) v;
-        currentParcel =  new Parcel(cityNameView.getText().toString());
+        currentParcel =  new Parcel(cities.get(cityNameView.getText().toString()));
         showDetails(currentParcel);
     }
 
@@ -68,10 +84,10 @@ public class CitiesFragment extends ListFragment{
         if (isExistDetailedView) {
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-            // Проверим, что фрагмент с гербом существует в активити
+            // Проверим, что детальный фрагмент существует в активити
             DetailedFragment detail = (DetailedFragment) getFragmentManager().findFragmentById(R.id.detailed_weather);
             // если есть необходимость, то выведем инфу о городе
-            if (detail == null || !detail.getParcel().getCityName().equals(parcel.getCityName())) {
+            if (detail == null || !detail.getParcel().getCity().equals(parcel.getCity())) {
 
                 // Создаем новый фрагмент, с текущей позицией, для вывода герба
                 detail = DetailedFragment.create(parcel);
