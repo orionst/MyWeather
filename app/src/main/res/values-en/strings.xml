@@ -11,6 +11,7 @@
     <string name="cityNameHint">Input city name</string>
     <string name="cityNameEmptyError">This field is blank</string>
     <string name="empty">Cities list epmty</string>
+    <string name="hourlyForecastTitle">Hourly forecast</string>
     <string-array name="Cities">
         <item>Moscow</item>
         <item>Saint-Petersburg</item>
