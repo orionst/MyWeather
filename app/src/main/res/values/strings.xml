@@ -3,6 +3,7 @@
     <string name="date_title">Погода на</string>
     <string name="temperature">23º</string>
     <string name="detailedTitle">Погода в других городах:</string>
+    <string name="temperatureDetailHeader">Температура: </string>
     <string name="humidityDetailHeader">Влажность: </string>
     <string name="pressureDetailHeader">Давление: </string>
     <string name="humidityToggle">Отобразить влажность</string>
