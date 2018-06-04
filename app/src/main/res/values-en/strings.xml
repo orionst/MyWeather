@@ -4,6 +4,7 @@
     <string name="date_title">Weather forecast for</string>
     <string name="temperature">23º</string>
     <string name="detailedTitle">Weather in other cities:</string>
+    <string name="temperatureDetailHeader">Temperature: </string>
     <string name="humidityDetailHeader">Humidity: </string>
     <string name="pressureDetailHeader">Pressure: </string>
     <string name="humidityToggle">Show humidity</string>

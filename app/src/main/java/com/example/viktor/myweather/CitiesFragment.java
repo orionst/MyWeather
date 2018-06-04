@@ -55,6 +55,7 @@ public class CitiesFragment extends ListFragment{
             for (CharSequence citiesName : citiesNames) {
                 cities.put(citiesName.toString(), new City(weatherData, citiesName.toString()));
             }
+            weatherData.getAllWeatherForecast();
             currentParcel = new Parcel(cities.get(citiesNames[0].toString()));
         }
 

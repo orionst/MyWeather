@@ -8,12 +8,12 @@ public class City implements Observer, Serializable{
     private int temperature;
     private float humidity;
     private int pressure;
-    private WeatherData weatherData;
+    public WeatherHistory[] weatherHistory;
 
     public City(WeatherData weatherData, String cityName) {
-        this.weatherData = weatherData;
         this.cityName = cityName;
         weatherData.registerObserver(this);
+        weatherHistory = new WeatherHistory[4];
     }
 
     @Override
@@ -52,6 +52,10 @@ public class City implements Observer, Serializable{
 
     public String getCityName() {
         return cityName;
+    }
+
+    public WeatherHistory[] getWeatherHistory() {
+        return weatherHistory;
     }
 
 }

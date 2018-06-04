@@ -15,14 +15,11 @@
         android:gravity="center"
         android:textSize="@dimen/title_text_size" />
 
-    <LinearLayout
-        android:id="@+id/containerHourly"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hourly_list_view"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:scrollbars="vertical">
+        android:layout_height="wrap_content">
 
-
-    </LinearLayout>
-
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

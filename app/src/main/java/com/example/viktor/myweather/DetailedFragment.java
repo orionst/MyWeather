@@ -1,7 +1,7 @@
 package com.example.viktor.myweather;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +24,17 @@ public class DetailedFragment extends Fragment {
         return f;
     }
 
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        try {
+//            mListener = (FragmentsNavigator) context;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(context.toString() + " должен имплементировать FragmentsNavigator");
+//        }
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,25 +50,26 @@ public class DetailedFragment extends Fragment {
         cityView.setText(parcel.getCity().getCityName());
 
         final TextView temperatureView = layout.findViewById(R.id.temperatureDetail);
-        temperatureView.setText(((Integer) presenter.getTemperature()).toString());
+        temperatureView.setText(((Integer) parcel.getCity().getTemperature()).toString());
 
-        final Button buttonHourlyWeather = layout.findViewById(R.id.buttonHourlyWeather);
-        buttonHourlyWeather.setOnClickListener(new View.OnClickListener() {
+        final Activity that = getActivity();
+        final Button btnHourlyView = layout.findViewById(R.id.buttonHourlyWeather);
+        btnHourlyView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Button button = layout.findViewById(R.id.buttonHourlyWeather);
-                showHourlyWeather(parcel);
+            public void onClick(View view) {
+                FragmentsNavigator mListener = (FragmentsNavigator) that;
+                mListener.startFragment(parcel);
             }
         });
 
         if (parcel.isShowPressure()) {
             final TextView pressureView = layout.findViewById(R.id.pressureDetail);
-            pressureView.setText(String.format("%s %s", getResources().getString(R.string.pressureDetailHeader), ((Integer) presenter.getPressure()).toString()));
+            pressureView.setText(String.format("%s %s", getResources().getString(R.string.pressureDetailHeader), ((Integer) parcel.getCity().getPressure()).toString()));
         }
 
         if (parcel.isShowHumidity()) {
             final TextView humidityView = layout.findViewById(R.id.humidityDetail);
-            humidityView.setText(String.format("%s %s", getResources().getString(R.string.humidityDetailHeader), ((Integer) presenter.getHumidity()).toString()));
+            humidityView.setText(String.format("%s %s", getResources().getString(R.string.humidityDetailHeader), ((Float) parcel.getCity().getHumidity()).toString()));
         }
 
         return layout;
@@ -67,31 +79,4 @@ public class DetailedFragment extends Fragment {
         Parcel parcel = (Parcel) getArguments().getSerializable(PARCEL);
         return parcel;
     }
-
-    private void showHourlyWeather(Parcel parcel) {
-
-//        HourlyFragment fragment2 = (HourlyFragment) getFragmentManager().findFragmentById(R.id.detailed_weather);
-//        fragment2 = HourlyFragment.create(parcel);
-//        FragmentManager fragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.detailed_weather, fragment2);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
-
-
-        // Проверим, что детальный фрагмент существует в активити
-            HourlyFragment detail = new HourlyFragment();
-            detail = HourlyFragment.create(parcel);
-            // если есть необходимость, то выведем инфу о городе
-                // Создаем новый фрагмент, с текущей позицией, для вывода герба
-
-                // Выполняем транзакцию по замене фрагмента
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.detailed_weather, detail);  // замена фрагмента
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                ft.commit();
-
-    }
-
-
 }

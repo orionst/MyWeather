@@ -46,7 +46,18 @@ public class WeatherData implements Observable, Serializable {
     public void getWeatherForecast(Observer observer) {
         if (observer instanceof City) {
             if (((City) observer).getCityName().equals("Москва") || ((City) observer).getCityName().equals("Moscow")) {
+                observer.update(10, 20, 747);
 
+            }
+            else if (((City) observer).getCityName().equals("Санкт-Петербург") || ((City) observer).getCityName().equals("Saint-Petersburg")) {
+                observer.update(15, 35, 747);
+            }
+            else {
+                observer.update(20, 10, 737);
+            }
+
+            for (int i = 0; i < 4; i++) {
+                ((City) observer).weatherHistory[i] = new WeatherHistory(10, 777, 32, ""+(i*6)+":00");
             }
         }
 
