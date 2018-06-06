@@ -4,7 +4,10 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements FragmentsNavigator{
+import com.example.viktor.myweather.tools.FragmentsNavigator;
+import com.example.viktor.myweather.tools.Parcel;
+
+public class MainActivity extends AppCompatActivity implements FragmentsNavigator {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

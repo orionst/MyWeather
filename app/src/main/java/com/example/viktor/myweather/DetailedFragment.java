@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.viktor.myweather.tools.FragmentsNavigator;
+import com.example.viktor.myweather.tools.Parcel;
+
 public class DetailedFragment extends Fragment {
 
     public static final String PARCEL = "parcel";
@@ -24,25 +27,11 @@ public class DetailedFragment extends Fragment {
         return f;
     }
 
-
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        try {
-//            mListener = (FragmentsNavigator) context;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(context.toString() + " должен имплементировать FragmentsNavigator");
-//        }
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         final Parcel parcel = getParcel();
-
-        WeatherPresenter presenter = new WeatherPresenter(parcel.getCity().getCityName());
-        presenter.checkWeather();
 
         final View layout = inflater.inflate(R.layout.fragment_detailed, container, false);
 

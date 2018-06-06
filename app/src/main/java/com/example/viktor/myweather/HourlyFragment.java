@@ -8,13 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.viktor.myweather.tools.Parcel;
+import com.example.viktor.myweather.tools.RecyclerAdapter;
+
 public class HourlyFragment extends Fragment {
 
     public static final String PARCEL = "parcel";
 
     Parcel parcel;
-
-    private final String[] strings = {"0:00", "6:00", "12:00", "18:00"};
 
     // фабричный метод, создает фрагмент и передает параметр
 //    public static HourlyFragment create(Parcel parcel) {

@@ -1,4 +1,4 @@
-package com.example.viktor.myweather;
+package com.example.viktor.myweather.tools;
 
 import com.example.viktor.myweather.forecasts.City;
 
