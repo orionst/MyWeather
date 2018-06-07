@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.viktor.myweather.forecasts.City;
 import com.example.viktor.myweather.forecasts.WeatherData;
@@ -46,20 +47,25 @@ public class CitiesFragment extends Fragment {
             currentParcel = new Parcel(cities.get(0));
         }
 
-        RecyclerView recyclerView = layout.findViewById(R.id.cities_list_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(layout.getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        CityListRecyclerAdapter adapter = new CityListRecyclerAdapter(cities);
-        recyclerView.setAdapter(adapter);
+        if (!cities.isEmpty()) {
+            RecyclerView recyclerView = layout.findViewById(R.id.cities_list_view);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(layout.getContext());
+            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(layoutManager);
+            CityListRecyclerAdapter adapter = new CityListRecyclerAdapter(cities);
+            recyclerView.setAdapter(adapter);
 
-        adapter.SetOnItemClickListener(new CityListRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                currentParcel =  new Parcel(cities.get(position));
-                showDetails(currentParcel);
-            }
-        });
+            adapter.SetOnItemClickListener(new CityListRecyclerAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    currentParcel = new Parcel(cities.get(position));
+                    showDetails(currentParcel);
+                }
+            });
+
+            TextView emptyListView = layout.findViewById(R.id.empty_city_list);
+            emptyListView.setVisibility(View.GONE);
+        }
 
         return layout;
     }
@@ -86,25 +92,19 @@ public class CitiesFragment extends Fragment {
 
     private void showDetails(Parcel parcel) {
         if (isExistDetailedView) {
-            //getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
             // Проверим, что детальный фрагмент существует в активити
-            DetailedFragment detail = (DetailedFragment) getFragmentManager().findFragmentById(R.id.detailed_weather);
+            SimpleCityFragment detail = (SimpleCityFragment) getFragmentManager().findFragmentById(R.id.detailed_weather);
             // если есть необходимость, то выведем инфу о городе
-            if (detail == null || !detail.getParcel().getCity().equals(parcel.getCity())) {
-
-                // Создаем новый фрагмент, с текущей позицией, для вывода герба
-                detail = DetailedFragment.create(parcel);
-
+            if (detail == null || !(detail instanceof DetailedFragment) || !detail.getParcel().getCity().equals(parcel.getCity())) {
                 // Выполняем транзакцию по замене фрагмента
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.detailed_weather, detail);  // замена фрагмента
+                ft.replace(R.id.detailed_weather, DetailedFragment.create(parcel));  // замена фрагмента
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 ft.commit();
             }
 
         } else {
-            Intent  intent = new Intent();
+            Intent intent = new Intent();
             intent.setClass(getActivity(), DetailedActivity.class);
 
             intent.putExtra(PARCEL, parcel);

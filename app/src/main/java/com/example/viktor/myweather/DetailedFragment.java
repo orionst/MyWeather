@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.viktor.myweather.tools.FragmentsNavigator;
 import com.example.viktor.myweather.tools.Parcel;
 
-public class DetailedFragment extends Fragment {
+public class DetailedFragment extends Fragment implements SimpleCityFragment{
 
     public static final String PARCEL = "parcel";
 
