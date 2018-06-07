@@ -4,14 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <ListView
-        android:id="@+id/android:list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cities_list_view"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
 
     <TextView
-        android:id="@id/android:empty"
+        android:id="@+id/empty_city_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
