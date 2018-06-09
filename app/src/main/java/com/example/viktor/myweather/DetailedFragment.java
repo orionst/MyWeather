@@ -1,16 +1,20 @@
 package com.example.viktor.myweather;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.viktor.myweather.tools.FragmentsNavigator;
 import com.example.viktor.myweather.tools.Parcel;
+import com.example.viktor.myweather.tools.RecyclerAdapter;
 
 public class DetailedFragment extends Fragment implements SimpleCityFragment{
 
@@ -33,36 +37,71 @@ public class DetailedFragment extends Fragment implements SimpleCityFragment{
 
         final Parcel parcel = getParcel();
 
-        final View layout = inflater.inflate(R.layout.fragment_detailed, container, false);
+        final View layout = inflater.inflate(R.layout.fragment_detailed_hourly, container, false);
 
-        final TextView cityView = layout.findViewById(R.id.cityTitleView);
+        final TextView cityView = layout.findViewById(R.id.city_name);
         cityView.setText(parcel.getCity().getCityName());
 
         final TextView temperatureView = layout.findViewById(R.id.temperatureDetail);
-        temperatureView.setText(((Integer) parcel.getCity().getTemperature()).toString());
+        temperatureView.setText(String.format("%s %s%s",
+                getString(R.string.temperatureDetailHeader),
+                ((Integer) parcel.getCity().getTemperature()).toString(),
+                getString(R.string.marker_degree)));
 
-        final Activity that = getActivity();
-        final Button btnHourlyView = layout.findViewById(R.id.buttonHourlyWeather);
-        btnHourlyView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentsNavigator mListener = (FragmentsNavigator) that;
-                mListener.startFragment(parcel);
+        Toolbar toolbar = layout.findViewById(R.id.detailed_toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                getActivity().onBackPressed();
             }
         });
 
-        if (parcel.isShowPressure()) {
-            final TextView pressureView = layout.findViewById(R.id.pressureDetail);
-            pressureView.setText(String.format("%s %s", getResources().getString(R.string.pressureDetailHeader), ((Integer) parcel.getCity().getPressure()).toString()));
-        }
+        RecyclerView recyclerView = layout.findViewById(R.id.hourly_list_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(layout.getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        RecyclerAdapter adapter = new RecyclerAdapter(parcel.getCity(), getResources());
+        recyclerView.setAdapter(adapter);
 
-        if (parcel.isShowHumidity()) {
-            final TextView humidityView = layout.findViewById(R.id.humidityDetail);
-            humidityView.setText(String.format("%s %s", getResources().getString(R.string.humidityDetailHeader), ((Float) parcel.getCity().getHumidity()).toString()));
-        }
+// закомментировано, так как отказался от отдельного фрагмента детальной погоды
+//        final Activity that = getActivity();
+//        final Button btnHourlyView = layout.findViewById(R.id.buttonHourlyWeather);
+//        btnHourlyView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentsNavigator mListener = (FragmentsNavigator) that;
+//                mListener.startFragment(parcel);
+//            }
+//        });
 
+//        if (parcel.isShowPressure()) {
+//            final TextView pressureView = layout.findViewById(R.id.pressureDetail);
+//            pressureView.setText(String.format("%s %s", getResources().getString(R.string.pressureDetailHeader), ((Integer) parcel.getCity().getPressure()).toString()));
+//        }
+//
+//        if (parcel.isShowHumidity()) {
+//            final TextView humidityView = layout.findViewById(R.id.humidityDetail);
+//            humidityView.setText(String.format("%s %s", getResources().getString(R.string.humidityDetailHeader), ((Float) parcel.getCity().getHumidity()).toString()));
+//        }
         return layout;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Обработка выбора пунктов меню         ​
+        int id = item.getItemId();
+        // noinspection SimplifiableIfStatement         ​
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public Parcel getParcel() {
         Parcel parcel = (Parcel) getArguments().getSerializable(PARCEL);

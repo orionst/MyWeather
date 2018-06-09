@@ -25,4 +25,15 @@ public class MainActivity extends AppCompatActivity implements FragmentsNavigato
         ft.addToBackStack("");
         ft.commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
 }

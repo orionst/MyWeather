@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">My Weather</string>
     <string name="date_title">Weather forecast for</string>
-    <string name="temperature">23º</string>
     <string name="detailedTitle">Weather in other cities:</string>
     <string name="temperatureDetailHeader">Temperature: </string>
     <string name="humidityDetailHeader">Humidity: </string>
@@ -13,10 +12,13 @@
     <string name="cityNameEmptyError">This field is blank</string>
     <string name="empty">Cities list epmty</string>
     <string name="hourlyForecastTitle">Hourly forecast</string>
+    <string name="action_settings">Settings</string>
+    <string name="marker_degree">°</string>
     <string-array name="Cities">
         <item>Moscow</item>
         <item>Saint-Petersburg</item>
         <item>Ekaterinburg</item>
         <item>Novosibirsk</item>
         <item>Samara</item>
-    </string-array></resources>
+    </string-array>
+</resources>

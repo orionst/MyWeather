@@ -8,5 +8,9 @@
     <dimen name="card_margin">5dp</dimen>
     <dimen name="card_album_radius">15dp</dimen>
     <dimen name="elevation">3dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="image_weather_padding_left">10dp</dimen>
+    <dimen name="image_weather_padding_right">15dp</dimen>
+    <dimen name="city_title_detailed_header">30sp</dimen>
 
 </resources>

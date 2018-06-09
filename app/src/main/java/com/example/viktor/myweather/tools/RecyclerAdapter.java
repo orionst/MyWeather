@@ -38,9 +38,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textView.setText(cityHistory[position].getTimeStamp());
         holder.picture.setImageResource(R.drawable.rain_s_cloudy);
-        holder.temperature.setText(String.format("%s %s", resources.getString(R.string.temperatureDetailHeader), ((Integer) cityHistory[position].getTemperature()).toString()));
-        holder.pressure.setText(String.format("%s %s", resources.getString(R.string.pressureDetailHeader), ((Integer) cityHistory[position].getPressure()).toString()));
-        holder.humidity.setText(String.format("%s %s", resources.getString(R.string.humidityDetailHeader), ((Float) cityHistory[position].getHumidity()).toString()));
+        holder.temperature.setText(String.format("%s %s%s",
+                resources.getString(R.string.temperatureDetailHeader),
+                ((Integer) cityHistory[position].getTemperature()).toString(),
+                resources.getString(R.string.marker_degree)));
+        holder.pressure.setText(String.format("%s %s",
+                resources.getString(R.string.pressureDetailHeader),
+                ((Integer) cityHistory[position].getPressure()).toString()));
+        holder.humidity.setText(String.format("%s %s",
+                resources.getString(R.string.humidityDetailHeader),
+                ((Float) cityHistory[position].getHumidity()).toString()));
     }
 
     @Override
