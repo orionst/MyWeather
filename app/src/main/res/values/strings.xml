@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Прогноз погоды</string>
     <string name="date_title">Погода на</string>
-    <string name="temperature">23º</string>
     <string name="detailedTitle">Погода в других городах:</string>
     <string name="temperatureDetailHeader">Температура: </string>
     <string name="humidityDetailHeader">Влажность: </string>
@@ -11,6 +10,7 @@
     <string name="cityNameHint">Введите название города</string>
     <string name="cityNameEmptyError">Название города не введено</string>
     <string name="empty">Список городов пуст</string>
+    <string name="marker_degree">°</string>
     <string-array name="Cities">
         <item>Москва</item>
         <item>Санкт-Петербург</item>
@@ -19,4 +19,5 @@
         <item>Самара</item>
     </string-array>
     <string name="hourlyForecastTitle">Почасовой прогноз</string>
+    <string name="action_settings">Настройки</string>
 </resources>

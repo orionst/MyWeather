@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -66,6 +68,16 @@ public class CitiesFragment extends Fragment {
             TextView emptyListView = layout.findViewById(R.id.empty_city_list);
             emptyListView.setVisibility(View.GONE);
         }
+
+        FloatingActionButton fab = layout.findViewById(R.id.fab);
+        // Обработка нажатия на плавающую кнопку
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Здесь вылетит Snackbar
+                Snackbar.make(view, "Добавляем город в список", Snackbar.LENGTH_LONG).show();
+            }
+        });
 
         return layout;
     }
