@@ -20,4 +20,10 @@
     </string-array>
     <string name="hourlyForecastTitle">Почасовой прогноз</string>
     <string name="action_settings">Настройки</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="show_in_f">Отображать в °F</string>
+    <string name="show_in_c">Отображать в °C</string>
+    <string name="about">О разработчике</string>
+    <string name="version">Вер.0.9</string>
 </resources>
