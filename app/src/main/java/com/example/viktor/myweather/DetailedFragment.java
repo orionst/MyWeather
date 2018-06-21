@@ -1,8 +1,6 @@
 package com.example.viktor.myweather;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +16,7 @@ import android.widget.TextView;
 import com.example.viktor.myweather.tools.Parcel;
 import com.example.viktor.myweather.tools.RecyclerAdapter;
 
-public class DetailedFragment extends Fragment implements SimpleCityFragment {
+public class DetailedFragment extends android.support.v4.app.Fragment implements SimpleCityFragment {
 
     public static final String PARCEL = "parcel";
 
@@ -31,12 +29,6 @@ public class DetailedFragment extends Fragment implements SimpleCityFragment {
         args.putSerializable(PARCEL, parcel);
         f.setArguments(args);
         return f;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -63,6 +55,12 @@ public class DetailedFragment extends Fragment implements SimpleCityFragment {
                 getActivity().onBackPressed();
             }
         });
+        if (getActivity() instanceof DetailedActivity) {
+            ((DetailedActivity) getActivity()).setSupportActionBar(toolbar);
+        } else {
+            ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        }
+        setHasOptionsMenu(true);
 
         RecyclerView recyclerView = layout.findViewById(R.id.hourly_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(layout.getContext());

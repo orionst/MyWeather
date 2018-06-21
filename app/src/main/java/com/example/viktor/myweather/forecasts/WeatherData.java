@@ -57,7 +57,7 @@ public class WeatherData implements Observable, Serializable {
             }
 
             for (int i = 0; i < 4; i++) {
-                ((City) observer).weatherHistory[i] = new WeatherHistory(10, 777, 32, ""+(i*6)+":00");
+                ((City) observer).weatherHistory[i] = new WeatherHistory(10+i*2, 777, 32, ""+(i*6)+":00");
             }
         }
 

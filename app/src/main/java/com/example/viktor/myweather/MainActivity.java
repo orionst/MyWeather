@@ -1,6 +1,10 @@
 package com.example.viktor.myweather;
 
 import android.app.FragmentTransaction;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,12 +14,51 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.viktor.myweather.tools.FragmentsNavigator;
 import com.example.viktor.myweather.tools.Parcel;
 
 public class MainActivity extends AppCompatActivity
         implements FragmentsNavigator, NavigationView.OnNavigationItemSelectedListener {
+
+    TextView textNearbyTemperature;
+    TextView textNearbyHumidity;
+    SensorManager sensorManager;
+    Sensor sensorTemperature;
+    Sensor sensorHumidity;
+    SensorEventListener listenerSensors = new SensorEventListener() {
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            if (event.sensor == sensorTemperature) {
+                showNearbyTemperature(event);
+            } else if (event.sensor == sensorHumidity) {
+                showNearbyHumiduty(event);
+            }
+        }
+    };
+
+    private void showNearbyTemperature(SensorEvent event) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getString(R.string.nearby_temperature_title)).
+                append(" ").
+                append(event.values[0]);
+        textNearbyTemperature.setText(stringBuilder.toString());
+    }
+
+    private void showNearbyHumiduty(SensorEvent event) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getString(R.string.nearby_humidity_title)).
+                append(" ").
+                append(event.values[0]);
+        textNearbyHumidity.setText(stringBuilder.toString());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +76,28 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //находим хеадер и в нем находим нужный view
+        View navHeader = navigationView.getHeaderView(0);
+        textNearbyTemperature = navHeader.findViewById(R.id.nearby_temperature);
+        textNearbyHumidity = navHeader.findViewById(R.id.nearby_humidity);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorTemperature = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+        sensorHumidity = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        if (sensorHumidity != null) {
+            sensorManager.registerListener(listenerSensors, sensorHumidity, sensorManager.SENSOR_DELAY_NORMAL);
+        }
+        if (sensorTemperature != null) {
+            sensorManager.registerListener(listenerSensors, sensorTemperature, sensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(listenerSensors, sensorTemperature);
+        sensorManager.unregisterListener(listenerSensors, sensorHumidity);
     }
 
     @Override
