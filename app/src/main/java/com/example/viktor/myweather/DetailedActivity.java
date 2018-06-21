@@ -1,15 +1,15 @@
 package com.example.viktor.myweather;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.viktor.myweather.tools.FragmentsNavigator;
 import com.example.viktor.myweather.tools.Parcel;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
-public class DetailedActivity extends Activity implements FragmentsNavigator {
+public class DetailedActivity extends AppCompatActivity implements FragmentsNavigator {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,7 @@ public class DetailedActivity extends Activity implements FragmentsNavigator {
             DetailedFragment details = new DetailedFragment();
             details.setArguments(getIntent().getExtras());
             // Добавим фрагмент на активити
-            getFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
+            getSupportFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
         }
     }
 

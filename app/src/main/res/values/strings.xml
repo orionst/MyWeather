@@ -26,4 +26,6 @@
     <string name="show_in_c">Отображать в °C</string>
     <string name="about">О разработчике</string>
     <string name="version">Вер.0.9</string>
+    <string name="nearby_temperature_title">Температура с сенсора:</string>
+    <string name="nearby_humidity_title">Влажность с сенсора:</string>
 </resources>

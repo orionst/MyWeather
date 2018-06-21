@@ -1,6 +1,5 @@
 package com.example.viktor.myweather;
 
-import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import java.util.ArrayList;
 
 import static com.example.viktor.myweather.DetailedFragment.PARCEL;
 
-public class CitiesFragment extends Fragment {
+public class CitiesFragment extends android.support.v4.app.Fragment {
 
     boolean isExistDetailedView;
     Parcel currentParcel;
@@ -109,7 +108,7 @@ public class CitiesFragment extends Fragment {
             // если есть необходимость, то выведем инфу о городе
             if (detail == null || !(detail instanceof DetailedFragment) || !detail.getParcel().getCity().equals(parcel.getCity())) {
                 // Выполняем транзакцию по замене фрагмента
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.detailed_weather, DetailedFragment.create(parcel));  // замена фрагмента
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                 ft.commit();
