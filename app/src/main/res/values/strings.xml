@@ -28,4 +28,5 @@
     <string name="version">Вер.0.9</string>
     <string name="nearby_temperature_title">Температура с сенсора:</string>
     <string name="nearby_humidity_title">Влажность с сенсора:</string>
+    <string name="update">Обновить погоду</string>
 </resources>

@@ -12,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.viktor.myweather.forecasts.City;
 import com.example.viktor.myweather.forecasts.WeatherData;
+import com.example.viktor.myweather.forecasts.WeatherUpdaterService;
 import com.example.viktor.myweather.tools.CityListRecyclerAdapter;
 import com.example.viktor.myweather.tools.Parcel;
 
@@ -44,7 +46,15 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
             for (CharSequence citiesName : citiesNames) {
                 cities.add(new City(weatherData, citiesName.toString()));
             }
-            weatherData.getAllWeatherForecast();
+
+//            weatherData.getAllWeatherForecast();
+            //Создаем сервис для обновления данных по погоде
+            Intent weatherUpdaterIntent = new Intent(getContext(), WeatherUpdaterService.class);
+            //weatherUpdaterIntent.putExtra("Cities", cities);
+            weatherUpdaterIntent.putExtra("WeatherData", weatherData);
+            getActivity().startService(weatherUpdaterIntent);
+            Toast.makeText(getContext(), "Weather updating...", Toast.LENGTH_SHORT).show();
+
             currentParcel = new Parcel(cities.get(0));
         }
 

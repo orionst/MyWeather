@@ -5,6 +5,11 @@
 
     <item android:title="Weater">
         <menu>
+            <item
+                android:id="@+id/nav_weather_update"
+                android:icon="@android:drawable/ic_popup_sync"
+                android:title="@string/update" />
+
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_temperature_f"

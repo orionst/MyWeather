@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WeatherData implements Observable, Serializable {
+public class WeatherData implements Observable, Serializable{
     private List<Observer> observers;
     private int temperature;
     private float humidity;
@@ -44,23 +44,18 @@ public class WeatherData implements Observable, Serializable {
     }
 
     public void getWeatherForecast(Observer observer) {
-        if (observer instanceof City) {
-            if (((City) observer).getCityName().equals("Москва") || ((City) observer).getCityName().equals("Moscow")) {
-                observer.update(10, 20, 747);
-
-            }
-            else if (((City) observer).getCityName().equals("Санкт-Петербург") || ((City) observer).getCityName().equals("Saint-Petersburg")) {
-                observer.update(15, 35, 747);
-            }
-            else {
-                observer.update(20, 10, 737);
-            }
-
-            for (int i = 0; i < 4; i++) {
-                ((City) observer).weatherHistory[i] = new WeatherHistory(10+i*2, 777, 32, ""+(i*6)+":00");
-            }
+        City cityObserver = (City) observer;
+        if (cityObserver.getCityName().equals("Москва") || cityObserver.getCityName().equals("Moscow")) {
+            observer.update(10, 20, 747);
+        } else if (cityObserver.getCityName().equals("Санкт-Петербург") || cityObserver.getCityName().equals("Saint-Petersburg")) {
+            observer.update(15, 35, 747);
+        } else {
+            observer.update(20, 10, 737);
         }
 
+        for (int i = 0; i < 4; i++) {
+            cityObserver.weatherHistory[i] = new WeatherHistory(10 + i * 2, 777, 32, "" + (i * 6) + ":00");
+        }
     }
 
 }

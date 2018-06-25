@@ -139,6 +139,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.about) {
 //            optionId = R.layout.fragment_about;
+        } else if (id == R.id.nav_weather_update) {
+
         }
 
 //        ViewGroup parent = findViewById(R.id.content_main);

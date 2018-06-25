@@ -87,6 +87,7 @@
                 android:layout_marginTop="4dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
                 />
+            
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 

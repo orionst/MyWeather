@@ -21,6 +21,7 @@
     <string name="version">v.0.9</string>
     <string name="nearby_temperature_title">Temperature from sensor:</string>
     <string name="nearby_humidity_title">Humidity from sensor:</string>
+    <string name="update">Update weather</string>
     <string-array name="Cities">
         <item>Moscow</item>
         <item>Saint-Petersburg</item>
