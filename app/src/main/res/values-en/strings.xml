@@ -12,7 +12,7 @@
     <string name="cityNameEmptyError">This field is blank</string>
     <string name="empty">Cities list epmty</string>
     <string name="hourlyForecastTitle">Hourly forecast</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_set_favorite_city">Favorite</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="show_in_f">Show in °F</string>
@@ -21,6 +21,7 @@
     <string name="version">v.0.9</string>
     <string name="nearby_temperature_title">Temperature from sensor:</string>
     <string name="nearby_humidity_title">Humidity from sensor:</string>
+    <string name="update">Update weather</string>
     <string-array name="Cities">
         <item>Moscow</item>
         <item>Saint-Petersburg</item>

@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.viktor.myweather.tools.FragmentsNavigator;
+import com.example.viktor.myweather.tools.OnRecyclerAdapterUpdateListener;
 import com.example.viktor.myweather.tools.Parcel;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
-public class DetailedActivity extends AppCompatActivity implements FragmentsNavigator {
+public class DetailedActivity extends AppCompatActivity implements FragmentsNavigator, OnRecyclerAdapterUpdateListener {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,4 +42,10 @@ public class DetailedActivity extends AppCompatActivity implements FragmentsNavi
         ft.addToBackStack("");
         ft.commit();
     }
+
+
+    @Override
+    public void OnCitiesListUpdate(String favoriteCity) {
+    }
+
 }

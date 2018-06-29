@@ -19,7 +19,7 @@
         <item>Самара</item>
     </string-array>
     <string name="hourlyForecastTitle">Почасовой прогноз</string>
-    <string name="action_settings">Настройки</string>
+    <string name="action_set_favorite_city">Избранный</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="show_in_f">Отображать в °F</string>
@@ -28,4 +28,5 @@
     <string name="version">Вер.0.9</string>
     <string name="nearby_temperature_title">Температура с сенсора:</string>
     <string name="nearby_humidity_title">Влажность с сенсора:</string>
+    <string name="update">Обновить погоду</string>
 </resources>

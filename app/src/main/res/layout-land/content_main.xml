@@ -12,7 +12,8 @@
     tools:context=".MainActivity">
 
     <!-- Фрагмент с выбором городов -->
-    <fragment android:name="com.example.viktor.myweather.CitiesFragment"
+    <fragment
+        android:name="com.example.viktor.myweather.CitiesFragment"
         android:id="@+id/cities"
         android:layout_weight="1"
         android:layout_width="0px"
