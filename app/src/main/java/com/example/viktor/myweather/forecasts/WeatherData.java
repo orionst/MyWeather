@@ -1,17 +1,33 @@
 package com.example.viktor.myweather.forecasts;
 
-import java.io.Serializable;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class WeatherData implements Observable, Serializable{
+public class WeatherData extends BroadcastReceiver implements Observable {
+    private static WeatherData weatherData;
     private List<Observer> observers;
     private int temperature;
     private float humidity;
     private int pressure;
 
-    public WeatherData() {
+    private WeatherData() {
         observers = new LinkedList<>();
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+    }
+
+    public static WeatherData init() {
+        if (weatherData == null) {
+            weatherData = new WeatherData();
+        }
+        return weatherData;
     }
 
     @Override
@@ -37,13 +53,18 @@ public class WeatherData implements Observable, Serializable{
         notifyObservers();
     }
 
-    public void getAllWeatherForecast() {
+    public void getAllWeatherForecast(Context context) {
         for (Observer observer : observers) {
-            getWeatherForecast(observer);
+            getWeatherForecast(observer, context);
         }
     }
 
-    public void getWeatherForecast(Observer observer) {
+    public void getWeatherForecast(Observer observer, Context context) {
+
+        Intent weatherUpdaterIntent = new Intent(context, WeatherUpdaterService.class);
+        weatherUpdaterIntent.putExtra("City", ((City) observer).getCityName());
+        context.startService(weatherUpdaterIntent);
+
         City cityObserver = (City) observer;
         if (cityObserver.getCityName().equals("Москва") || cityObserver.getCityName().equals("Moscow")) {
             observer.update(10, 20, 747);

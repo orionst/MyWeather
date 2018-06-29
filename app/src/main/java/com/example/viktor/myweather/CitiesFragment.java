@@ -16,9 +16,9 @@ import android.widget.Toast;
 
 import com.example.viktor.myweather.forecasts.City;
 import com.example.viktor.myweather.forecasts.WeatherData;
-import com.example.viktor.myweather.forecasts.WeatherUpdaterService;
 import com.example.viktor.myweather.tools.CityListRecyclerAdapter;
 import com.example.viktor.myweather.tools.Parcel;
+import com.example.viktor.myweather.tools.SharePref;
 
 import java.util.ArrayList;
 
@@ -30,29 +30,27 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
     Parcel currentParcel;
     ArrayList<City> cities;
     WeatherData weatherData;
+    SharePref sharedPreferences;
+    CityListRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View layout = inflater.inflate(R.layout.fragment_cities_list, container, false);
 
+        sharedPreferences = SharePref.getInstance(getContext());
+
         if (savedInstanceState != null) {
             currentParcel = (Parcel) savedInstanceState.getSerializable("CurrentCity");
             cities = (ArrayList<City>) savedInstanceState.getSerializable("CitiesList");
-            weatherData = (WeatherData) savedInstanceState.getSerializable("WeatherData");
         } else {
-            weatherData = new WeatherData();
+            weatherData = WeatherData.init();
             CharSequence[] citiesNames = getResources().getTextArray(R.array.Cities);
             cities = new ArrayList<>();
             for (CharSequence citiesName : citiesNames) {
                 cities.add(new City(weatherData, citiesName.toString()));
             }
 
-//            weatherData.getAllWeatherForecast();
-            //Создаем сервис для обновления данных по погоде
-            Intent weatherUpdaterIntent = new Intent(getContext(), WeatherUpdaterService.class);
-            //weatherUpdaterIntent.putExtra("Cities", cities);
-            weatherUpdaterIntent.putExtra("WeatherData", weatherData);
-            getActivity().startService(weatherUpdaterIntent);
+            weatherData.getAllWeatherForecast(getContext());
             Toast.makeText(getContext(), "Weather updating...", Toast.LENGTH_SHORT).show();
 
             currentParcel = new Parcel(cities.get(0));
@@ -63,7 +61,7 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
             LinearLayoutManager layoutManager = new LinearLayoutManager(layout.getContext());
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);
-            CityListRecyclerAdapter adapter = new CityListRecyclerAdapter(cities);
+            adapter = new CityListRecyclerAdapter(cities, sharedPreferences.getFavoriteCity());
             recyclerView.setAdapter(adapter);
 
             adapter.SetOnItemClickListener(new CityListRecyclerAdapter.OnItemClickListener() {
@@ -83,7 +81,6 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Здесь вылетит Snackbar
                 Snackbar.make(view, "Добавляем город в список", Snackbar.LENGTH_LONG).show();
             }
         });
@@ -108,13 +105,18 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
         super.onSaveInstanceState(outState);
         outState.putSerializable("CurrentCity", currentParcel);
         outState.putSerializable("CitiesList", cities);
-        outState.putSerializable("WeatherData", weatherData);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        reDrawCitiesList(sharedPreferences.getFavoriteCity());
     }
 
     private void showDetails(Parcel parcel) {
         if (isExistDetailedView) {
             // Проверим, что детальный фрагмент существует в активити
-            SimpleCityFragment detail = (SimpleCityFragment) getFragmentManager().findFragmentById(R.id.detailed_weather);
+            ParcelInCityFragment detail = (ParcelInCityFragment) getFragmentManager().findFragmentById(R.id.detailed_weather);
             // если есть необходимость, то выведем инфу о городе
             if (detail == null || !(detail instanceof DetailedFragment) || !detail.getParcel().getCity().equals(parcel.getCity())) {
                 // Выполняем транзакцию по замене фрагмента
@@ -127,9 +129,13 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
         } else {
             Intent intent = new Intent();
             intent.setClass(getActivity(), DetailedActivity.class);
-
             intent.putExtra(PARCEL, parcel);
             startActivity(intent);
         }
     }
+
+    public void reDrawCitiesList(String favoriteCity) {
+        adapter.favoriteCityChanged(favoriteCity);
+    }
+
 }

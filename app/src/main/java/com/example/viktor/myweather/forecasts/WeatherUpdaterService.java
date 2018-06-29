@@ -20,13 +20,11 @@ public class WeatherUpdaterService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        makeNote("onHandleIntent");
-//        ArrayList<City> cities = (ArrayList<City>) intent.getSerializableExtra("Cities");
-//        for (City city: cities) {
-//            makeNote(city.getCityName());
-//        }
-        WeatherData weatherData = (WeatherData)intent.getSerializableExtra("WeatherData");
-        weatherData.getAllWeatherForecast();
+        //makeNote("onHandleIntent");
+        String city = (String) intent.getSerializableExtra("City");
+
+        //получаем данные с погодного сервиса
+        makeNote("Обновление погоды города " + city);
     }
 
     @Override
@@ -37,20 +35,21 @@ public class WeatherUpdaterService extends IntentService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        makeNote("onStartCommand");
+        //makeNote("onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
-        makeNote("onDestroy");
+        //makeNote("onDestroy");
         super.onDestroy();
     }
 
+    //выводит уведомление в статусбар
     private void makeNote(String message){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "2")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Main service notification")
+                .setContentTitle(getString(R.string.app_name))
                 .setContentText(message);
         Intent resultIntent = new Intent(this, WeatherUpdaterService.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);

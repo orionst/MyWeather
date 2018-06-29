@@ -16,10 +16,13 @@ import java.util.ArrayList;
 public class CityListRecyclerAdapter extends RecyclerView.Adapter<CityListRecyclerAdapter.ViewHolder> {
 
     private ArrayList<City> cities;
+    private String favoriteCity;
     private OnItemClickListener itemClickListener;  // Слушатель, будет устанавливаться извне
 
-    public CityListRecyclerAdapter(ArrayList<City> cities) {
+    public CityListRecyclerAdapter(ArrayList<City> cities, String favoriteCity) {
         this.cities = cities;
+        this.favoriteCity = favoriteCity;
+
     }
 
     @Override
@@ -30,8 +33,16 @@ public class CityListRecyclerAdapter extends RecyclerView.Adapter<CityListRecycl
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText(cities.get(position).getCityName());
-        holder.picture.setImageResource(R.drawable.rain_s_cloudy);
+        String city = cities.get(position).getCityName();
+        holder.textView.setText(city);
+        holder.imgWeather.setImageResource(R.drawable.rain_s_cloudy);
+        if (city.equals(favoriteCity)) {
+            holder.imgCityFavorite.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgCityFavorite.setVisibility(View.INVISIBLE);
+
+        }
+
     }
 
     @Override
@@ -42,13 +53,16 @@ public class CityListRecyclerAdapter extends RecyclerView.Adapter<CityListRecycl
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textView;
-        private ImageView picture;
+        private ImageView imgWeather;
+        private ImageView imgCityFavorite;
 
         public ViewHolder(@NonNull final View item) {
             super(item);
             //if (getLayoutPosition() != RecyclerView.NO_POSITION) {
+            imgCityFavorite = item.findViewById(R.id.image_city_favorite);
             textView = item.findViewById(R.id.city_name);
-            picture = item.findViewById(R.id.picture);
+            imgWeather = item.findViewById(R.id.picture);
+
             // обработчик нажатий на этом ViewHolder
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -69,6 +83,11 @@ public class CityListRecyclerAdapter extends RecyclerView.Adapter<CityListRecycl
 
     public void SetOnItemClickListener(OnItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
+    }
+
+    public void favoriteCityChanged(String favoriteCity) {
+        this.favoriteCity = favoriteCity;
+        notifyDataSetChanged();
     }
 
 }

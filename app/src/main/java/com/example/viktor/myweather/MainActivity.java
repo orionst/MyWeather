@@ -18,16 +18,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.viktor.myweather.tools.FragmentsNavigator;
+import com.example.viktor.myweather.tools.OnRecyclerAdapterUpdateListener;
 import com.example.viktor.myweather.tools.Parcel;
 
 public class MainActivity extends AppCompatActivity
-        implements FragmentsNavigator, NavigationView.OnNavigationItemSelectedListener {
+        implements FragmentsNavigator, NavigationView.OnNavigationItemSelectedListener, OnRecyclerAdapterUpdateListener {
 
     TextView textNearbyTemperature;
     TextView textNearbyHumidity;
     SensorManager sensorManager;
     Sensor sensorTemperature;
     Sensor sensorHumidity;
+
     SensorEventListener listenerSensors = new SensorEventListener() {
 
         @Override
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity
                 append(event.values[0]);
         textNearbyHumidity.setText(stringBuilder.toString());
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -150,5 +153,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void OnCitiesListUpdate(String favoriteCity) {
+        CitiesFragment fragment = (CitiesFragment) getSupportFragmentManager().findFragmentById(R.id.cities);
+        if (fragment != null && fragment.isInLayout()) {
+            fragment.reDrawCitiesList(favoriteCity);
+        }
     }
 }

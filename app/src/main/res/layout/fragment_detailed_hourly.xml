@@ -63,6 +63,14 @@
         style="@style/ToolBarWithNavigationBack"
         >
 
+        <ImageView
+            android:id="@+id/image_city_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:src="@android:drawable/btn_star_big_on"
+            android:visibility="invisible"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

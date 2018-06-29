@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.viktor.myweather.tools.Parcel;
 import com.example.viktor.myweather.tools.RecyclerAdapter;
 
-public class HourlyFragment extends Fragment implements SimpleCityFragment{
+public class HourlyFragment extends Fragment implements ParcelInCityFragment {
 
     public static final String PARCEL = "parcel";
 
