@@ -18,7 +18,7 @@ import com.example.viktor.myweather.forecasts.City;
 import com.example.viktor.myweather.forecasts.WeatherData;
 import com.example.viktor.myweather.tools.CityListRecyclerAdapter;
 import com.example.viktor.myweather.tools.Parcel;
-import com.example.viktor.myweather.tools.SharePref;
+import com.example.viktor.myweather.utils.SharePref;
 
 import java.util.ArrayList;
 
@@ -30,14 +30,11 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
     Parcel currentParcel;
     ArrayList<City> cities;
     WeatherData weatherData;
-    SharePref sharedPreferences;
     CityListRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View layout = inflater.inflate(R.layout.fragment_cities_list, container, false);
-
-        sharedPreferences = SharePref.getInstance(getContext());
 
         if (savedInstanceState != null) {
             currentParcel = (Parcel) savedInstanceState.getSerializable("CurrentCity");
@@ -61,7 +58,7 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
             LinearLayoutManager layoutManager = new LinearLayoutManager(layout.getContext());
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             recyclerView.setLayoutManager(layoutManager);
-            adapter = new CityListRecyclerAdapter(cities, sharedPreferences.getFavoriteCity());
+            adapter = new CityListRecyclerAdapter(cities, SharePref.getFavoriteCity(getActivity()));
             recyclerView.setAdapter(adapter);
 
             adapter.SetOnItemClickListener(new CityListRecyclerAdapter.OnItemClickListener() {
@@ -110,7 +107,7 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        reDrawCitiesList(sharedPreferences.getFavoriteCity());
+        reDrawCitiesList(SharePref.getFavoriteCity(getActivity()));
     }
 
     private void showDetails(Parcel parcel) {

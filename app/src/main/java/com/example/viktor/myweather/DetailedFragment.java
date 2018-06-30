@@ -17,7 +17,8 @@ import android.widget.TextView;
 import com.example.viktor.myweather.tools.OnRecyclerAdapterUpdateListener;
 import com.example.viktor.myweather.tools.Parcel;
 import com.example.viktor.myweather.tools.RecyclerAdapter;
-import com.example.viktor.myweather.tools.SharePref;
+import com.example.viktor.myweather.utils.Constants;
+import com.example.viktor.myweather.utils.SharePref;
 
 public class DetailedFragment extends android.support.v4.app.Fragment implements ParcelInCityFragment {
 
@@ -26,8 +27,6 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
     ImageView imgCityFavorite;
 
     private OnRecyclerAdapterUpdateListener raListener;
-
-    SharePref sharedPreferences;
 
     // фабричный метод, создает фрагмент и передает параметр
     public static DetailedFragment create(Parcel parcel) {
@@ -57,8 +56,6 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
 
         final View layout = inflater.inflate(R.layout.fragment_detailed_hourly, container, false);
 
-        sharedPreferences = SharePref.getInstance(getContext());
-
         parcel = getParcel();
 
         final TextView cityView = layout.findViewById(R.id.city_name);
@@ -71,7 +68,7 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
                 getString(R.string.marker_degree)));
 
         imgCityFavorite = layout.findViewById(R.id.image_city_favorite);
-        if (parcel.getCity().getCityName().equals(sharedPreferences.getFavoriteCity())) {
+        if (parcel.getCity().getCityName().equals(SharePref.getFavoriteCity(getActivity()))) {
             imgCityFavorite.setVisibility(View.VISIBLE);
         }
 
@@ -124,7 +121,7 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
-        if (parcel.getCity().getCityName().equals(sharedPreferences.getFavoriteCity())) {
+        if (parcel.getCity().getCityName().equals(SharePref.getFavoriteCity(getActivity()))) {
             menu.findItem(R.id.action_set_favorite_city).setChecked(true);
         }
     }
@@ -135,11 +132,11 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
         switch (item.getItemId()) {
             case R.id.action_set_favorite_city:
                 if (item.isChecked()) {
-                    sharedPreferences.saveFavoriteCity("");
+                    SharePref.saveFavoriteCity(getActivity(), Constants.EMPTY_FAVORITE_CITY);
                     imgCityFavorite.setVisibility(View.INVISIBLE);
                     refreshCitiesList("");
                 } else {
-                    sharedPreferences.saveFavoriteCity(parcel.getCity().getCityName());
+                    SharePref.saveFavoriteCity(getActivity(), parcel.getCity().getCityName());
                     imgCityFavorite.setVisibility(View.VISIBLE);
                     refreshCitiesList(parcel.getCity().getCityName());
                 }
