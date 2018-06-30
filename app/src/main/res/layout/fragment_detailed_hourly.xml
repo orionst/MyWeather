@@ -19,15 +19,13 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/ioexample.backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="fitStart"
                 android:src="@drawable/london_flat"
                 app:layout_collapseMode="parallax"
                 tools:ignore="ContentDescription"
@@ -53,15 +51,14 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/detailed_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         app:layout_collapseMode="parallax"
         app:layout_anchor="@id/detailed_appbar"
         app:layout_anchorGravity="bottom"
         app:theme="@style/ThemeOverlay.AppCompat.Light"
-        style="@style/ToolBarWithNavigationBack"
-        >
+        style="@style/ToolBarWithNavigationBack">
 
         <ImageView
             android:id="@+id/image_city_favorite"
@@ -69,12 +66,12 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/standard_margin"
             android:src="@android:drawable/btn_star_big_on"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
+            android:layout_gravity="center"
             android:layout_marginBottom="8dp"
             android:minHeight="?android:attr/actionBarSize"
             android:orientation="vertical"
@@ -92,7 +89,7 @@
                 android:id="@+id/temperatureDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/standard_margin"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
                 />
             
