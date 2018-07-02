@@ -22,9 +22,8 @@ import com.example.viktor.myweather.utils.SharePref;
 
 public class DetailedFragment extends android.support.v4.app.Fragment implements ParcelInCityFragment {
 
-    public static final String PARCEL = "parcel";
-    Parcel parcel;
-    ImageView imgCityFavorite;
+    private Parcel parcel;
+    private ImageView imgCityFavorite;
 
     private OnRecyclerAdapterUpdateListener raListener;
 
@@ -34,7 +33,7 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
 
         // передача параметра
         Bundle args = new Bundle();
-        args.putSerializable(PARCEL, parcel);
+        args.putSerializable(Constants.PARCEL, parcel);
         f.setArguments(args);
         return f;
     }
@@ -64,7 +63,7 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
         final TextView temperatureView = layout.findViewById(R.id.temperatureDetail);
         temperatureView.setText(String.format("%s %s%s",
                 getString(R.string.temperatureDetailHeader),
-                ((Integer) parcel.getCity().getTemperature()).toString(),
+                parcel.getCity().getTemperature(),
                 getString(R.string.marker_degree)));
 
         imgCityFavorite = layout.findViewById(R.id.image_city_favorite);
@@ -153,7 +152,7 @@ public class DetailedFragment extends android.support.v4.app.Fragment implements
     }
 
     public Parcel getParcel() {
-        Parcel parcel = (Parcel) getArguments().getSerializable(PARCEL);
+        Parcel parcel = (Parcel) getArguments().getSerializable(Constants.PARCEL);
         return parcel;
     }
 }

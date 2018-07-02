@@ -24,7 +24,7 @@
     <string name="update">Update weather</string>
     <string-array name="Cities">
         <item>Moscow</item>
-        <item>Saint-Petersburg</item>
+        <item>Saint Petersburg,ru</item>
         <item>Ekaterinburg</item>
         <item>Novosibirsk</item>
         <item>Samara</item>

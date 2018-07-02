@@ -1,26 +1,40 @@
 package com.example.viktor.myweather.forecasts;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class City implements Observer, Serializable{
 
     private String cityName;
-    private int temperature;
-    private float humidity;
-    private int pressure;
-    public WeatherHistory[] weatherHistory;
+    private float temperature;
+    private int humidity;
+    private float pressure;
+    private String condition;
+    private ArrayList<WeatherHistory> weatherHistory;
 
     public City(WeatherData weatherData, String cityName) {
         this.cityName = cityName;
+        this.condition = "";
         weatherData.registerObserver(this);
-        weatherHistory = new WeatherHistory[4];
+        weatherHistory = new ArrayList<>();
     }
 
     @Override
-    public void update(int temperature, float humidity, int pressure) {
+    public void updateActualWeather(float temperature, int humidity, float pressure, String condition) {
         this.temperature = temperature;
         this.humidity = humidity;
         this.pressure = pressure;
+        this.condition = condition;
+    }
+
+    @Override
+    public void addForecastWeatherNode(float temperature, int humidity, float pressure, String condition, String timestamp) {
+        weatherHistory.add(new WeatherHistory(temperature, pressure, humidity, condition, timestamp));
+    }
+
+    @Override
+    public void clearForecastWeatherNodes() {
+        weatherHistory.clear();
     }
 
     @Override
@@ -38,15 +52,19 @@ public class City implements Observer, Serializable{
         return true;
     }
 
-    public int getTemperature() {
-        return temperature;
+    public String getTemperature() {
+        if (temperature == 0) {
+            return "N/A";
+        } else {
+            return String.format("%.1f", temperature - 273.15f);
+        }
     }
 
-    public float getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public int getPressure() {
+    public float getPressure() {
         return pressure;
     }
 
@@ -54,7 +72,11 @@ public class City implements Observer, Serializable{
         return cityName;
     }
 
-    public WeatherHistory[] getWeatherHistory() {
+    public String getCondition() {
+        return condition;
+    }
+
+    public ArrayList<WeatherHistory> getWeatherHistory() {
         return weatherHistory;
     }
 

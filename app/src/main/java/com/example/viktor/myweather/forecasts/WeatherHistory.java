@@ -4,32 +4,37 @@ import java.io.Serializable;
 
 public class WeatherHistory implements Serializable {
 
-    private int temperature;
-    private int pressure;
-    private float humidity;
+    private float temperature;
+    private float pressure;
+    private int humidity;
     private String timeStamp;
+    private String condition;
 
-    public WeatherHistory(int temperature, int pressure, float humidity, String timeStamp) {
+    public WeatherHistory(float temperature, float pressure, int humidity, String condition, String timeStamp) {
         this.temperature = temperature;
         this.pressure = pressure;
         this.humidity = humidity;
         this.timeStamp = timeStamp;
+        this.condition = condition;
     }
 
-    public int getTemperature() {
-        return temperature;
+    public String getTemperature() {
+        return String.format("%.1f", temperature - 273.15f);
     }
 
-    public int getPressure() {
+    public float getPressure() {
         return pressure;
     }
 
-    public float getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
     public String getTimeStamp() {
         return timeStamp;
     }
-}
 
+    public String getCondition() {
+        return condition;
+    }
+}
