@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.example.viktor.myweather.MyWeatherApplication;
 import com.example.viktor.myweather.forecasts.provider.model.ForecastRequest;
 import com.example.viktor.myweather.forecasts.provider.model.WeatherRequest;
-import com.example.viktor.myweather.utils.Constants;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +17,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WeatherData extends BroadcastReceiver implements Observable {
+
+    private final String OPEN_WEATHER_API_KEY = "c9b03892683779b5f3be88ab7a4d5b90";
+
     private static WeatherData weatherData;
     private List<Observer> observers;
     private float temperature;
@@ -80,7 +82,7 @@ public class WeatherData extends BroadcastReceiver implements Observable {
 
         City cityObserver = (City) observer;
         ((MyWeatherApplication) context.getApplicationContext()).getWeatherProvider()
-                .loadWeather(cityObserver.getCityName(), Constants.OPEN_WEATHER_API_KEY)
+                .loadWeather(cityObserver.getCityName(), OPEN_WEATHER_API_KEY)
                 .enqueue(new Callback<WeatherRequest>() {
                     @Override
                     public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
@@ -116,7 +118,7 @@ public class WeatherData extends BroadcastReceiver implements Observable {
 
         City cityObserver = (City) observer;
         ((MyWeatherApplication) context.getApplicationContext()).getWeatherProvider()
-                .loadForecast(cityObserver.getCityName(), Constants.OPEN_WEATHER_API_KEY)
+                .loadForecast(cityObserver.getCityName(), OPEN_WEATHER_API_KEY)
                 .enqueue(new Callback<ForecastRequest>() {
                     @Override
                     public void onResponse(Call<ForecastRequest> call, Response<ForecastRequest> response) {

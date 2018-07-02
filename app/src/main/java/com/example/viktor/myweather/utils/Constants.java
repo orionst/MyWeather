@@ -9,8 +9,6 @@ public final class Constants {
     public static final String EMPTY_FAVORITE_CITY = "";
     public static final String CITIES_LIST = "074ecf99-6a16-4e63-8c68-201e950916a6";
 
-    public static final String OPEN_WEATHER_API_KEY = "c9b03892683779b5f3be88ab7a4d5b90";
-
     private Constants() {
     }
 }
