@@ -13,9 +13,11 @@ import com.example.viktor.myweather.R;
 import com.example.viktor.myweather.forecasts.City;
 import com.example.viktor.myweather.forecasts.WeatherHistory;
 
+import java.util.ArrayList;
+
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private WeatherHistory[] cityHistory;
+    private ArrayList<WeatherHistory> cityHistory;
     private Resources resources;
 
     public RecyclerAdapter(City city, Resources resources) {
@@ -36,23 +38,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.textView.setText(cityHistory[position].getTimeStamp());
-        holder.picture.setImageResource(R.drawable.rain_s_cloudy);
+        holder.textView.setText(cityHistory.get(position).getTimeStamp());
+        if (cityHistory.get(position).getCondition().equals("Clear")) {
+            holder.picture.setImageResource(R.drawable.sunny);
+        } else {
+            holder.picture.setImageResource(R.drawable.rain_s_cloudy);
+        }
         holder.temperature.setText(String.format("%s %s%s",
                 resources.getString(R.string.temperatureDetailHeader),
-                ((Integer) cityHistory[position].getTemperature()).toString(),
+                cityHistory.get(position).getTemperature(),
                 resources.getString(R.string.marker_degree)));
         holder.pressure.setText(String.format("%s %s",
                 resources.getString(R.string.pressureDetailHeader),
-                ((Integer) cityHistory[position].getPressure()).toString()));
+                Float.toString(cityHistory.get(position).getPressure())));
         holder.humidity.setText(String.format("%s %s",
                 resources.getString(R.string.humidityDetailHeader),
-                ((Float) cityHistory[position].getHumidity()).toString()));
+                Float.toString(cityHistory.get(position).getHumidity())));
     }
 
     @Override
     public int getItemCount() {
-        return cityHistory.length;
+        return cityHistory.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

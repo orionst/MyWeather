@@ -22,7 +22,6 @@ public class CityListRecyclerAdapter extends RecyclerView.Adapter<CityListRecycl
     public CityListRecyclerAdapter(ArrayList<City> cities, String favoriteCity) {
         this.cities = cities;
         this.favoriteCity = favoriteCity;
-
     }
 
     @Override
@@ -33,16 +32,18 @@ public class CityListRecyclerAdapter extends RecyclerView.Adapter<CityListRecycl
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String city = cities.get(position).getCityName();
-        holder.textView.setText(city);
-        holder.imgWeather.setImageResource(R.drawable.rain_s_cloudy);
-        if (city.equals(favoriteCity)) {
+        City city = cities.get(position);
+        holder.textView.setText(city.getCityName());
+        if (city.getCondition().equals("Clear")) {
+            holder.imgWeather.setImageResource(R.drawable.sunny);
+        } else {
+            holder.imgWeather.setImageResource(R.drawable.rain_s_cloudy);
+        }
+        if (city.getCityName().equals(favoriteCity)) {
             holder.imgCityFavorite.setVisibility(View.VISIBLE);
         } else {
             holder.imgCityFavorite.setVisibility(View.INVISIBLE);
-
         }
-
     }
 
     @Override

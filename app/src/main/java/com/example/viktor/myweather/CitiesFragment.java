@@ -18,11 +18,10 @@ import com.example.viktor.myweather.forecasts.City;
 import com.example.viktor.myweather.forecasts.WeatherData;
 import com.example.viktor.myweather.tools.CityListRecyclerAdapter;
 import com.example.viktor.myweather.tools.Parcel;
+import com.example.viktor.myweather.utils.Constants;
 import com.example.viktor.myweather.utils.SharePref;
 
 import java.util.ArrayList;
-
-import static com.example.viktor.myweather.DetailedFragment.PARCEL;
 
 public class CitiesFragment extends android.support.v4.app.Fragment {
 
@@ -47,6 +46,7 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
                 cities.add(new City(weatherData, citiesName.toString()));
             }
 
+            weatherData.getAllActualWeather(getContext());
             weatherData.getAllWeatherForecast(getContext());
             Toast.makeText(getContext(), "Weather updating...", Toast.LENGTH_SHORT).show();
 
@@ -126,7 +126,7 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
         } else {
             Intent intent = new Intent();
             intent.setClass(getActivity(), DetailedActivity.class);
-            intent.putExtra(PARCEL, parcel);
+            intent.putExtra(Constants.PARCEL, parcel);
             startActivity(intent);
         }
     }
