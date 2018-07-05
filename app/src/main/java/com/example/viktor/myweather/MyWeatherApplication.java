@@ -16,6 +16,7 @@ public class MyWeatherApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MyWeatherSingleton.init(this);
         initRetorfit();
     }
 

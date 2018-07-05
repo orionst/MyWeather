@@ -1,5 +1,6 @@
 package com.example.viktor.myweather;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,10 +76,12 @@ public class CitiesFragment extends android.support.v4.app.Fragment {
 
         FloatingActionButton fab = layout.findViewById(R.id.fab);
         // Обработка нажатия на плавающую кнопку
+        final Activity that = getActivity();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Добавляем город в список", Snackbar.LENGTH_LONG).show();
+
             }
         });
 
