@@ -12,11 +12,11 @@
     <string name="empty">Список городов пуст</string>
     <string name="marker_degree">°</string>
     <string-array name="Cities">
-        <item>Москва</item>
-        <item>Санкт-Петербург</item>
-        <item>Екатеринбург</item>
-        <item>Новосибирск</item>
-        <item>Самара</item>
+        <item>Moscow</item>
+        <item>Saint Petersburg</item>
+        <item>Yekaterinburg</item>
+        <item>Novosibirsk</item>
+        <item>Samara</item>
     </string-array>
     <string name="hourlyForecastTitle">Почасовой прогноз</string>
     <string name="action_set_favorite_city">Избранный</string>
@@ -29,4 +29,10 @@
     <string name="nearby_temperature_title">Температура с сенсора:</string>
     <string name="nearby_humidity_title">Влажность с сенсора:</string>
     <string name="update">Обновить погоду</string>
+    <string name="error_weather_updating">Ошибка загрузки текущей погоды</string>
+    <string name="error_forecast_updating">Ошибка загрузки прогноза погоды</string>
+    <string name="button_save">Добавить город</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

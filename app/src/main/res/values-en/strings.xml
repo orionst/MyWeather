@@ -22,10 +22,13 @@
     <string name="nearby_temperature_title">Temperature from sensor:</string>
     <string name="nearby_humidity_title">Humidity from sensor:</string>
     <string name="update">Update weather</string>
+    <string name="error_weather_updating">Error request actual weather</string>
+    <string name="error_forecast_updating">Error request weather forecast</string>
+    <string name="button_save">Add city</string>
     <string-array name="Cities">
         <item>Moscow</item>
         <item>Saint Petersburg,ru</item>
-        <item>Ekaterinburg</item>
+        <item>Yekaterinburg</item>
         <item>Novosibirsk</item>
         <item>Samara</item>
     </string-array>

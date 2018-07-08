@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.viktor.myweather.MyWeatherApplication;
+import com.example.viktor.myweather.MyWeatherSingleton;
+import com.example.viktor.myweather.R;
+import com.example.viktor.myweather.database.CityWeatherEntity;
 import com.example.viktor.myweather.forecasts.provider.model.ForecastRequest;
 import com.example.viktor.myweather.forecasts.provider.model.WeatherRequest;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -96,13 +100,13 @@ public class WeatherData extends BroadcastReceiver implements Observable {
                                     0,
                                     0,
                                     "Clear");
-
+                            Toast.makeText(context, "Weather for "+((City) observer).getCityName()+" not found", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<WeatherRequest> call, Throwable t) {
-                        Toast.makeText(context, "Error request actual weather", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.error_weather_updating, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -123,21 +127,35 @@ public class WeatherData extends BroadcastReceiver implements Observable {
                     @Override
                     public void onResponse(Call<ForecastRequest> call, Response<ForecastRequest> response) {
                         if (response.body() != null) {
-                            observer.clearForecastWeatherNodes();
+
+                            List<CityWeatherEntity> entities = new ArrayList<>();
+                            //закомментированно, так как данные теперь хранятся в БД
+//                            observer.clearForecastWeatherNodes();
+
                             for (int i = 0; i < response.body().getCnt(); i++) {
                                 com.example.viktor.myweather.forecasts.provider.model.List list = response.body().getList()[i];
-                                observer.addForecastWeatherNode(list.getMain().getTemp(),
-                                        list.getMain().getHumidity(),
+                                //закомментированно, так как данные теперь хранятся в БД
+//                                observer.addForecastWeatherNode(list.getMain().getTemp(),
+//                                        list.getMain().getHumidity(),
+//                                        list.getMain().getPressure(),
+//                                        list.getWeather()[0].getMain(),
+//                                        list.getDt_txt());
+
+                                entities.add(new CityWeatherEntity(0,
+                                        ((City) observer).getCityName(),
+                                        list.getDt_txt(),
+                                        list.getMain().getTemp(),
                                         list.getMain().getPressure(),
-                                        list.getWeather()[0].getMain(),
-                                        list.getDt_txt());
-                            }
+                                        list.getMain().getHumidity(),
+                                        list.getWeather()[0].getMain()));
+                          }
+                            MyWeatherSingleton.get().getDatabase().cityWeatherDAO().insertAll(entities);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ForecastRequest> call, Throwable t) {
-                        Toast.makeText(context, "Error request weather forecast", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.error_forecast_updating, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
