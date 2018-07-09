@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "531414324879",
+    "firebase_url": "https://myweather-aaf13.firebaseio.com",
+    "project_id": "myweather-aaf13",
+    "storage_bucket": "myweather-aaf13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531414324879:android:33154707c630855a",
+        "android_client_info": {
+          "package_name": "com.example.viktor.myweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531414324879-kiglat5dgveqcicll0abrh8u3r53shpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.viktor.myweather",
+            "certificate_hash": "02d7cbcfe657f960a74eb99043ae986e1e7ccc92"
+          }
+        },
+        {
+          "client_id": "531414324879-l9chdoqqrasg5epjjlukqg00hi7c2rqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhvmp3vofAPhKFCve9HbasFIx6UjBG0hk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531414324879-l9chdoqqrasg5epjjlukqg00hi7c2rqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
