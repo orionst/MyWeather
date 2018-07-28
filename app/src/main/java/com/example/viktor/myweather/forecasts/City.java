@@ -10,13 +10,15 @@ public class City implements Observer, Serializable{
     private int humidity;
     private float pressure;
     private String condition;
+    private boolean currentLocation;
     private ArrayList<WeatherHistory> weatherHistory;
 
-    public City(WeatherData weatherData, String cityName) {
+    public City(WeatherData weatherData, String cityName, boolean currentLocation) {
         this.cityName = cityName;
         this.condition = "";
         weatherData.registerObserver(this);
         weatherHistory = new ArrayList<>();
+        this.currentLocation = currentLocation;
     }
 
     @Override
@@ -72,8 +74,16 @@ public class City implements Observer, Serializable{
         return cityName;
     }
 
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
     public String getCondition() {
         return condition;
+    }
+
+    public boolean isRealCity() {
+        return !currentLocation;
     }
 
     public ArrayList<WeatherHistory> getWeatherHistory() {

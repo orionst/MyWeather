@@ -32,7 +32,6 @@
     <string name="error_weather_updating">Ошибка загрузки текущей погоды</string>
     <string name="error_forecast_updating">Ошибка загрузки прогноза погоды</string>
     <string name="button_save">Добавить город</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_item_weather_location">Показать погоду в текущем местоположении</string>
+    <string name="current_location">Текущее местоположение</string>
 </resources>
