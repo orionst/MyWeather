@@ -32,4 +32,6 @@
         <item>Novosibirsk</item>
         <item>Samara</item>
     </string-array>
+    <string name="menu_item_weather_location">Show weather in current location</string>
+    <string name="current_location">Current Location</string>
 </resources>

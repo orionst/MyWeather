@@ -73,16 +73,14 @@ public class WeatherData extends BroadcastReceiver implements Observable {
 
     public void getAllActualWeather(Context context) {
         for (Observer observer : observers) {
-            getActualWeather(observer, context);
+            if (((City)observer).isRealCity()) {
+                getActualWeather(observer, context);
+            }
         }
     }
 
     // загрузка акутальной погоды
     public void getActualWeather(final Observer observer, final Context context) {
-
-//        Intent weatherUpdaterIntent = new Intent(context, WeatherUpdaterService.class);
-//        weatherUpdaterIntent.putExtra("City", ((City) observer).getCityName());
-//        context.startService(weatherUpdaterIntent);
 
         City cityObserver = (City) observer;
         ((MyWeatherApplication) context.getApplicationContext()).getWeatherProvider()
@@ -111,9 +109,41 @@ public class WeatherData extends BroadcastReceiver implements Observable {
                 });
     }
 
+    // загрузка акутальной погоды по координатам
+    public void getActualWeatherByLocation(final Observer observer, final Context context, String latitude, String longitude) {
+
+        ((MyWeatherApplication) context.getApplicationContext()).getWeatherProvider()
+                .loadWeatherByCoordinates(latitude, longitude, OPEN_WEATHER_API_KEY)
+                .enqueue(new Callback<WeatherRequest>() {
+                    @Override
+                    public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
+                        if (response.body() != null) {
+                            ((City) observer).setCityName(response.body().getName());
+                            observer.updateActualWeather(response.body().getMain().getTemp(),
+                                    response.body().getMain().getHumidity(),
+                                    response.body().getMain().getPressure(),
+                                    response.body().getWeather()[0].getMain());
+                        } else {
+                            observer.updateActualWeather(0,
+                                    0,
+                                    0,
+                                    "Clear");
+                            Toast.makeText(context, "Weather for "+((City) observer).getCityName()+" not found", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<WeatherRequest> call, Throwable t) {
+                        Toast.makeText(context, R.string.error_weather_updating, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     public void getAllWeatherForecast(Context context) {
         for (Observer observer : observers) {
-            getWeatherForecast(observer, context);
+            if (((City)observer).isRealCity()) {
+                getWeatherForecast(observer, context);
+            }
         }
     }
 
@@ -129,18 +159,8 @@ public class WeatherData extends BroadcastReceiver implements Observable {
                         if (response.body() != null) {
 
                             List<CityWeatherEntity> entities = new ArrayList<>();
-                            //закомментированно, так как данные теперь хранятся в БД
-//                            observer.clearForecastWeatherNodes();
-
                             for (int i = 0; i < response.body().getCnt(); i++) {
                                 com.example.viktor.myweather.forecasts.provider.model.List list = response.body().getList()[i];
-                                //закомментированно, так как данные теперь хранятся в БД
-//                                observer.addForecastWeatherNode(list.getMain().getTemp(),
-//                                        list.getMain().getHumidity(),
-//                                        list.getMain().getPressure(),
-//                                        list.getWeather()[0].getMain(),
-//                                        list.getDt_txt());
-
                                 entities.add(new CityWeatherEntity(0,
                                         ((City) observer).getCityName(),
                                         list.getDt_txt(),

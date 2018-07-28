@@ -1,6 +1,5 @@
 package com.example.viktor.myweather;
 
-import android.app.FragmentTransaction;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -8,6 +7,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,7 +23,7 @@ import com.example.viktor.myweather.tools.OnRecyclerAdapterUpdateListener;
 import com.example.viktor.myweather.tools.Parcel;
 
 public class MainActivity extends AppCompatActivity
-        implements FragmentsNavigator, NavigationView.OnNavigationItemSelectedListener, OnRecyclerAdapterUpdateListener {
+        implements FragmentsNavigator, NavigationView.OnNavigationItemSelectedListener, OnRecyclerAdapterUpdateListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     TextView textNearbyTemperature;
     TextView textNearbyHumidity;
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity
         textNearbyHumidity.setText(stringBuilder.toString());
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity
         if (sensorTemperature != null) {
             sensorManager.registerListener(listenerSensors, sensorTemperature, sensorManager.SENSOR_DELAY_NORMAL);
         }
+
     }
 
     @Override
@@ -106,12 +107,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void startFragment(Parcel parcel) {
         // Выполняем транзакцию по замене фрагмента
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.remove(getFragmentManager().findFragmentById(R.id.detailed_weather));
-        ft.add(R.id.detailed_weather, HourlyFragment.create(parcel));  // замена фрагмента
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.addToBackStack("");
-        ft.commit();
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.remove(getSupportFragmentManager().findFragmentById(R.id.detailed_weather));
+//        ft.add(R.id.detailed_weather, HourlyFragment.create(parcel));  // замена фрагмента
+//        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+//        ft.addToBackStack("");
+//        ft.commit();
     }
 
     @Override
@@ -141,10 +142,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_temperature_f) {
 
         } else if (id == R.id.about) {
-//            optionId = R.layout.fragment_about;
-        } else if (id == R.id.nav_weather_update) {
 
+        } else if (id == R.id.nav_get_weather_in_location) {
+            optionId = R.layout.fragment_about;
         }
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.detailed_weather, AboutFragment.create());  // замена фрагмента
+        ft.commit();
+
 
 //        ViewGroup parent = findViewById(R.id.content_main);
 //        parent.removeAllViews();
@@ -152,6 +158,7 @@ public class MainActivity extends AppCompatActivity
 //        parent.addView(newContent);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
@@ -162,4 +169,5 @@ public class MainActivity extends AppCompatActivity
             fragment.reDrawCitiesList(favoriteCity);
         }
     }
+
 }

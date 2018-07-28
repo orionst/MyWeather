@@ -1,4 +1,4 @@
-package com.example.viktor.myweather.utils;
+package com.example.viktor.myweather.services;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -30,7 +30,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             setAlertMessage(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody(), remoteMessage.getData());
         }
     }
-
 
     private void setAlertMessage(String title, String message, Map<String, String> data) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "2")

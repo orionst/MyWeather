@@ -1,4 +1,4 @@
-package com.example.viktor.myweather.utils;
+package com.example.viktor.myweather.services;
 
 import android.util.Log;
 
