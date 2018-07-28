@@ -6,7 +6,7 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(indices = {@Index(value = {"cityname","timestamp"})})
+@Entity(indices = {@Index(value = {"cityname"})})
 public class CityWeatherEntity {
 
     @PrimaryKey(autoGenerate = true)

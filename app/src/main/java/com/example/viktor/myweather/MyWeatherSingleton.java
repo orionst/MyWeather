@@ -16,7 +16,7 @@ public final class MyWeatherSingleton {
     private CityWeatherDatabase dataBase;
 
     public MyWeatherSingleton(@NonNull Context context) {
-        dataBase = Room.databaseBuilder(context, CityWeatherDatabase.class, DATABASE_NAME).addMigrations(MIGRATION_1_2).allowMainThreadQueries().build();
+        dataBase = Room.databaseBuilder(context, CityWeatherDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
     }
 
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
