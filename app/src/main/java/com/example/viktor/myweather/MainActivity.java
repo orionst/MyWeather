@@ -1,5 +1,7 @@
 package com.example.viktor.myweather;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity
     SensorManager sensorManager;
     Sensor sensorTemperature;
     Sensor sensorHumidity;
+
+    private static final int PERMISSION_REQUEST_CODE = 10;
 
     SensorEventListener listenerSensors = new SensorEventListener() {
 
@@ -94,6 +98,15 @@ public class MainActivity extends AppCompatActivity
         if (sensorTemperature != null) {
             sensorManager.registerListener(listenerSensors, sensorTemperature, sensorManager.SENSOR_DELAY_NORMAL);
         }
+
+        // Проверим на пермиссии, и если их нет, запросим у пользователя
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        } else {
+            // пермиссии нет, будем запрашивать у пользователя
+            requestLocationPermissions();
+        }
+
 
     }
 
@@ -169,5 +182,19 @@ public class MainActivity extends AppCompatActivity
             fragment.reDrawCitiesList(favoriteCity);
         }
     }
+
+    // Запрос пермиссии для геолокации
+    private void requestLocationPermissions() {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+            // Запросим эти две пермиссии у пользователя
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    },
+                    PERMISSION_REQUEST_CODE);
+        }
+    }
+
 
 }
